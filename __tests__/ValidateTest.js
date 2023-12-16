@@ -18,4 +18,7 @@ describe('근무자 배열 검사', () => {
   test.each([['a', 'b', 'c', 'd', 'a']])('근무자가 중복인 경우', (input) => {
     expect(() => Control.validateMonthDay(input)).toThrow('[ERROR]');
   });
+  test.each([['a', 'b', 'c', 'd', 'abcdfg']])('근무자 이름이 5글자 초과인 경우', (input) => {
+    expect(() => Control.validateMonthDay(input)).toThrow('[ERROR]');
+  });
 });
