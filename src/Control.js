@@ -2,6 +2,7 @@ import { TOTALDAY } from './Day.js';
 import InputView from './InputView.js';
 import OutputView from './OutputView.js';
 import { Console, Random } from '@woowacourse/mission-utils';
+import User from './User.js';
 
 export default class Control {
   #weekdayWorker = [];
@@ -9,8 +10,8 @@ export default class Control {
   async start() {
     const monthDay = await Control.getValidateMonthDay();
     await this.getValidateWeekdayWorker();
-
-    
+    const user = new User(monthDay, [...this.#weekdayWorker], [...this.#weekendWorker]);
+    console.log(user.write());
   }
 
   static async getValidateMonthDay() {
