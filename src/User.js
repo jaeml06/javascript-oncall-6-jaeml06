@@ -11,7 +11,7 @@ export default class User {
     this.#weekendWorker = weekendWorker;
   }
 
-  write() {
+  calculateSchedule() {
     const schedule = [];
     const monthCount = MONTHCOUNT[this.#monthDay[0] - 1];
     let weekdayIndex = 0;

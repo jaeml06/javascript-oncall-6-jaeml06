@@ -11,7 +11,7 @@ export default class Control {
     const monthDay = await Control.getValidateMonthDay();
     await this.getValidateWeekWorker();
     const user = new User(monthDay, [...this.#weekdayWorker], [...this.#weekendWorker]);
-    const schedule = user.write();
+    const schedule = user.calculateSchedule();
     OutputView.printSchedule(schedule);
   }
 
