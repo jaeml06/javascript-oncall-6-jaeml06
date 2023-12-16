@@ -3,8 +3,8 @@ import { HOLIDAY, MONTHCOUNT, TOTALDAY } from './Day';
 export default class User {
   #monthDay;
   #weekdayWorker;
-  #weekendWorker ;
-  
+  #weekendWorker;
+
   constructor(monthday = [], weekdayWorker = [], weekendWorker = []) {
     this.#monthDay = monthday;
     this.#weekdayWorker = weekdayWorker;
@@ -45,7 +45,14 @@ export default class User {
     return [currentWorker, nextWorker];
   }
 
-  swapWorkersIfNeeded(schedule = [], currentWorker = '', nextWorker = '', isHoliday = false, weekdayIndex = 0, weekendIndex = 0) {
+  swapWorkersIfNeeded(
+    schedule = [],
+    currentWorker = '',
+    nextWorker = '',
+    isHoliday = false,
+    weekdayIndex = 0,
+    weekendIndex = 0,
+  ) {
     const [swappedCurrent, swappedNext] = User.checkWorkerSwap(schedule, currentWorker, nextWorker);
     this.updateWorkerArray(swappedCurrent, swappedNext, isHoliday, weekdayIndex, weekendIndex);
     return User.incrementIndexes(isHoliday, weekdayIndex, weekendIndex);

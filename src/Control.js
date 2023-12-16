@@ -50,7 +50,7 @@ export default class Control {
         this.#weekdayWorker = Control.validateWeekWorker(weekdayWorkerArray);
         const weekendWorkerString = await InputView.readWeekendWorker();
         const weekendWorkerArray = Control.weekWorkerStringToArray(weekendWorkerString);
-        this.#weekendWorker =  Control.validateWeekWorker(weekendWorkerArray);
+        this.#weekendWorker = Control.validateWeekWorker(weekendWorkerArray);
         return;
       } catch (error) {
         OutputView.printError(error);
