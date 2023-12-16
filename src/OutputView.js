@@ -3,12 +3,10 @@ import MESSAGE from './Message.js';
 
 
 const OutputView = {
-  printIntroduce() {
-    Console.print(MESSAGE.introduce);
-  },
-
-  printComplete(){
-    Console.print(MESSAGE.complete);
+  printSchedule(schedule = []){
+    schedule.forEach((string) => {
+      Console.print(string);
+    })
   },
 
   printError(error){

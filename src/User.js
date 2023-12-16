@@ -43,7 +43,7 @@ export default class User {
       }
       // 휴일 표시 추가
       const holidayMark = isHoliday && dayOfWeek < 5 ? "(휴일)" : "";
-      schedule.push(`5월 ${day}일 ${TOTALDAY[dayOfWeek]}${holidayMark} ${currentWorker}`);
+      schedule.push(`${this.#monthDay[0]}월 ${day}일 ${TOTALDAY[dayOfWeek]}${holidayMark} ${currentWorker}`);
       
       // 인덱스 증가
       if (isHoliday) {

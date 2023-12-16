@@ -3,7 +3,7 @@ import Control from "./Control.js";
 class App {
   async run() {
     const control = new Control();
-    control.start();
+    await control.start();
   }
 }
 
