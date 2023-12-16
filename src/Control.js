@@ -5,13 +5,10 @@ import OutputView from './OutputView';
 import User from './User';
 
 export default class Control {
-  #weekdayWorker = [];
-  #weekendWorker = [];
-
   async start() {
     const monthDay = await Control.getValidateMonthDay();
-    await this.getValidateWeekWorker();
-    const user = new User(monthDay, [...this.#weekdayWorker], [...this.#weekendWorker]);
+    const [weekdayWorker, weekendWorker] = await Control.getValidateWeekWorker();
+    const user = new User(monthDay, [...weekdayWorker], [...weekendWorker]);
     const schedule = user.calculateSchedule();
     OutputView.printSchedule(schedule);
   }
@@ -42,16 +39,16 @@ export default class Control {
     }
   }
 
-  async getValidateWeekWorker() {
+  static async getValidateWeekWorker() {
     while (true) {
       try {
         const weekdayWorkerString = await InputView.readWeekDayWorker();
         const weekdayWorkerArray = Control.weekWorkerStringToArray(weekdayWorkerString);
-        this.#weekdayWorker = Control.validateWeekWorker(weekdayWorkerArray);
+        const weekdayWorker = Control.validateWeekWorker(weekdayWorkerArray);
         const weekendWorkerString = await InputView.readWeekendWorker();
         const weekendWorkerArray = Control.weekWorkerStringToArray(weekendWorkerString);
-        this.#weekendWorker = Control.validateWeekWorker(weekendWorkerArray);
-        return;
+        const weekendWorker = Control.validateWeekWorker(weekendWorkerArray);
+        return [weekdayWorker, weekendWorker];
       } catch (error) {
         OutputView.printError(error);
       }
