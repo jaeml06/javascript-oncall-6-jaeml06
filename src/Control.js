@@ -1,8 +1,7 @@
-import { TOTALDAY } from './Day.js';
-import InputView from './InputView.js';
-import OutputView from './OutputView.js';
-import { Console, Random } from '@woowacourse/mission-utils';
-import User from './User.js';
+import { TOTALDAY } from './Day';
+import InputView from './InputView';
+import OutputView from './OutputView';
+import User from './User';
 
 export default class Control {
   #weekdayWorker = [];

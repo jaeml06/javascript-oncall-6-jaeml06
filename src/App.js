@@ -1,4 +1,4 @@
-import Control from "./Control.js";
+import Control from './Control';
 
 class App {
   async run() {

@@ -1,5 +1,4 @@
 import { Console } from '@woowacourse/mission-utils';
-import MESSAGE from './Message.js';
 
 const OutputView = {
   printSchedule(schedule = []) {
