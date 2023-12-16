@@ -4,9 +4,12 @@ import OutputView from './OutputView.js';
 import { Console, Random } from '@woowacourse/mission-utils';
 
 export default class Control {
+  #weekdayWorker = [];
+  #weekendWorker = [];
   async start() {
-    OutputView.printIntroduce();
     const monthDay = await Control.getValidateMonthDay();
+    await this.getValidateWeekdayWorker();
+
     
   }
 
@@ -35,14 +38,38 @@ export default class Control {
     }
   }
 
-  static async () {
+  async getValidateWeekdayWorker() {
     while (true) {
       try {
-        
-        return ;
+        const weekdayWorkerString = await InputView.readWeekDayWorker();
+        const weekdayWorkerArray = this.weekdayWorkerStringToArray(weekdayWorkerString);
+        this.validateWeekdayWorker(weekdayWorkerArray);
+        this.#weekdayWorker = weekdayWorkerArray;
+        const weekendWorkerString = await InputView.readWeekendWorker();
+        const weekendWorkerArray = this.weekdayWorkerStringToArray(weekendWorkerString);
+        this.validateWeekdayWorker(weekendWorkerArray);
+        this.#weekendWorker = weekendWorkerArray;
+        return;
       } catch (error) {
         OutputView.printError(error);
       }
     }
+  }
+
+  weekdayWorkerStringToArray(weekdayWorkerString = ''){
+    return weekdayWorkerString.split(',');
+  }
+
+  validateWeekdayWorker(weekdayWorkerArray = []){
+    const nameSet = new Set(); 
+    if(weekdayWorkerArray.length < 5 || weekdayWorkerArray.length > 35){
+      throw new Error('[ERROR] 유효하지 않은 배열 값입니다. 다시 입력해 주세요.');
+    }
+    weekdayWorkerArray.forEach((name) => {
+      if(name.length >5 || nameSet.has(name)){
+        throw new Error('[ERROR] 유효하지 않은 이름 값입니다. 다시 입력해 주세요.');
+      }
+      nameSet.add(name);
+    })
   }
 }
