@@ -1,9 +1,9 @@
 import { HOLIDAY, MONTHCOUNT, TOTALDAY } from './Day';
 
 export default class User {
-  #monthDay = [];
-  #weekdayWorker = [];
-  #weekendWorker = [];
+  #monthDay;
+  #weekdayWorker;
+  #weekendWorker ;
   
   constructor(monthday = [], weekdayWorker = [], weekendWorker = []) {
     this.#monthDay = monthday;
@@ -26,16 +26,16 @@ export default class User {
     return [...schedule];
   }
 
-  getDayOfWeek(day) {
+  getDayOfWeek(day = 0) {
     return (TOTALDAY.indexOf(this.#monthDay[1]) + day - 1) % 7;
   }
 
-  isHoliday(day, dayOfWeek) {
+  isHoliday(day = 0, dayOfWeek = 0) {
     const holidays = HOLIDAY[this.#monthDay[0] - 1];
     return holidays.includes(day) || dayOfWeek >= 5;
   }
 
-  selectWorkers(isHoliday, weekdayIndex, weekendIndex) {
+  selectWorkers(isHoliday = false, weekdayIndex = 0, weekendIndex = 0) {
     const index = isHoliday ? weekendIndex : weekdayIndex;
     const workers = isHoliday ? this.#weekendWorker : this.#weekdayWorker;
 
@@ -45,20 +45,20 @@ export default class User {
     return [currentWorker, nextWorker];
   }
 
-  swapWorkersIfNeeded(schedule, currentWorker, nextWorker, isHoliday, weekdayIndex, weekendIndex) {
+  swapWorkersIfNeeded(schedule = [], currentWorker = '', nextWorker = '', isHoliday = false, weekdayIndex = 0, weekendIndex = 0) {
     const [swappedCurrent, swappedNext] = User.checkWorkerSwap(schedule, currentWorker, nextWorker);
     this.updateWorkerArray(swappedCurrent, swappedNext, isHoliday, weekdayIndex, weekendIndex);
     return User.incrementIndexes(isHoliday, weekdayIndex, weekendIndex);
   }
 
-  static checkWorkerSwap(schedule, currentWorker, nextWorker) {
+  static checkWorkerSwap(schedule = [], currentWorker = '', nextWorker = '') {
     if (schedule.length > 0 && schedule[schedule.length - 1].includes(currentWorker)) {
       return [nextWorker, currentWorker];
     }
     return [currentWorker, nextWorker];
   }
 
-  updateWorkerArray(currentWorker, nextWorker, isHoliday, weekdayIndex, weekendIndex) {
+  updateWorkerArray(currentWorker = '', nextWorker = '', isHoliday = false, weekdayIndex = 0, weekendIndex = 0) {
     if (isHoliday) {
       this.#weekendWorker[weekendIndex % this.#weekendWorker.length] = currentWorker;
       this.#weekendWorker[(weekendIndex + 1) % this.#weekendWorker.length] = nextWorker;
@@ -68,7 +68,7 @@ export default class User {
     }
   }
 
-  static incrementIndexes(isHoliday, weekdayIndex, weekendIndex) {
+  static incrementIndexes(isHoliday = false, weekdayIndex = 0, weekendIndex = 0) {
     let weekendIndx = weekendIndex;
     let weekdayIndx = weekdayIndex;
     if (isHoliday) {
@@ -79,7 +79,7 @@ export default class User {
     return [weekdayIndx, weekendIndx];
   }
 
-  addToSchedule(schedule, day, dayOfWeek, isHoliday, currentWorker) {
+  addToSchedule(schedule = [], day = 0, dayOfWeek = 0, isHoliday = false, currentWorker = '') {
     const holidayMark = isHoliday && dayOfWeek < 5 ? '(휴일)' : '';
     schedule.push(`${this.#monthDay[0]}월 ${day}일 ${TOTALDAY[dayOfWeek]}${holidayMark} ${currentWorker}`);
   }
